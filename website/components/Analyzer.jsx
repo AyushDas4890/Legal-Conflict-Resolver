@@ -1,5 +1,8 @@
 'use client'
 import { useState, useCallback, useRef } from 'react'
+import { motion } from 'framer-motion'
+
+const EASE = [0.16, 1, 0.3, 1]
 import {
   UploadSimple,
   Warning,
@@ -293,10 +296,13 @@ export default function Analyzer() {
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="mb-14 max-w-lg">
-          <p className="text-xs font-mono text-amber-500/70 uppercase tracking-widest mb-3">
-            Live analyzer
-          </p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="mb-14 max-w-lg"
+        >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-zinc-50 leading-tight">
             Upload. Compare.<br />Resolve.
           </h2>
@@ -308,7 +314,7 @@ export default function Analyzer() {
               Demo mode — results are mock data. Set NEXT_PUBLIC_API_URL to connect the live backend.
             </p>
           )}
-        </div>
+        </motion.div>
 
         {/* Upload area */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

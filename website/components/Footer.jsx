@@ -1,3 +1,4 @@
+'use client'
 import { GavelIcon, GithubLogo } from '@phosphor-icons/react'
 
 export default function Footer() {

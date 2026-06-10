@@ -1,3 +1,6 @@
+'use client'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import {
   FileText,
   Scissors,
@@ -6,6 +9,17 @@ import {
   Sparkle,
   Scales,
 } from '@phosphor-icons/react'
+
+const EASE = [0.16, 1, 0.3, 1]
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: EASE, delay: i * 0.07 },
+  }),
+}
 
 const FEATURES = [
   {
@@ -47,28 +61,38 @@ const FEATURES = [
 ]
 
 export default function Features() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
     <section id="features" className="py-28 px-6 border-t border-zinc-800/60">
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header — left-aligned */}
-        <div className="mb-14 max-w-lg">
-          <p className="text-xs font-mono text-amber-500/70 uppercase tracking-widest mb-3">
-            Pipeline
-          </p>
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="mb-14 max-w-lg"
+        >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-zinc-50 leading-tight">
             Five-phase analysis,<br />end-to-end.
           </h2>
           <p className="text-zinc-400 text-sm leading-relaxed mt-4">
             From raw file to token-level conflict evidence — each stage runs deterministically with no hallucination risk.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Asymmetric grid — DESIGN_VARIANCE=8 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800/40 rounded-xl overflow-hidden">
-          {FEATURES.map(({ icon: Icon, title, body, span }) => (
-            <div
+        {/* Grid with scroll-triggered stagger */}
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800/40 rounded-xl overflow-hidden">
+          {FEATURES.map(({ icon: Icon, title, body, span }, i) => (
+            <motion.div
               key={title}
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              animate={inView ? 'show' : 'hidden'}
               className={`${span} bg-zinc-950 p-7 hover:bg-zinc-900/60 transition-colors duration-300 group`}
             >
               <div className="w-9 h-9 rounded-lg bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center mb-4 group-hover:border-amber-500/30 group-hover:bg-amber-500/8 transition-all duration-300">
@@ -76,7 +100,7 @@ export default function Features() {
               </div>
               <h3 className="text-sm font-semibold text-zinc-100 tracking-tight mb-2">{title}</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">{body}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
