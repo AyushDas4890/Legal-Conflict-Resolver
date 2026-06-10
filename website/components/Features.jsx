@@ -1,7 +1,7 @@
 import {
   FileText,
   Scissors,
-  BrainCircuit,
+  Brain,
   ChartBar,
   Sparkle,
   Scales,
@@ -21,7 +21,7 @@ const FEATURES = [
     span: 'col-span-1',
   },
   {
-    icon: BrainCircuit,
+    icon: Brain,
     title: 'DeBERTa-v3 NLI',
     body: 'Microsoft\'s DeBERTa-v3-large fine-tuned on MNLI + SNLI. Three-way classification: entailment, neutral, or contradiction — per clause pair.',
     span: 'col-span-1 md:col-span-2',
