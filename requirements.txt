@@ -1,0 +1,49 @@
+# ============================================================
+# Legal-Financial Conflict Resolver — Python Dependencies
+# ============================================================
+
+# --- Core NLP & ML ---
+torch>=2.1.0
+transformers>=4.38.0
+sentence-transformers>=2.6.0
+datasets>=2.18.0
+tokenizers>=0.15.0
+accelerate>=0.27.0
+evaluate>=0.4.1
+scikit-learn>=1.4.0
+numpy>=1.26.0
+pandas>=2.2.0
+scipy>=1.12.0
+
+# --- Model: DeBERTa fine-tuning ---
+# microsoft/deberta-v3-large is pulled via transformers HuggingFace Hub
+
+# --- Semantic Search & Indexing ---
+faiss-cpu>=1.8.0  # Use faiss-gpu if CUDA available
+
+# --- Clause Extraction & NLP Utilities ---
+spacy>=3.7.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+
+# --- SEC EDGAR Data ---
+sec-edgar-downloader>=5.0.0
+
+# --- Visualization & Reporting ---
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.19.0
+rich>=13.7.0
+
+# --- API & Web Backend ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.6.0
+python-multipart>=0.0.9
+
+# --- Utilities ---
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+loguru>=0.7.0
+httpx>=0.27.0
+pypdf>=4.0.0
+python-docx>=1.1.0

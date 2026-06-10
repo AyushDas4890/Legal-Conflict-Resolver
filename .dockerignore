@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.env
+data/raw/
+data/eda/
+*.parquet
+models/
+*.pt
+*.bin
+node_modules/
+dashboard/dist/
+.venv/
+venv/
+*.egg-info/
