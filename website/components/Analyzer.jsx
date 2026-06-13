@@ -14,6 +14,24 @@ import {
   Lightbulb,
 } from '@phosphor-icons/react'
 
+const SAMPLE_A_CONTENT = `LIMITATION OF LIABILITY
+In no event shall either party be liable for indirect, incidental, or consequential damages arising out of this agreement.
+
+TERMINATION OF AGREEMENT
+Either party may terminate this agreement upon 30 days written notice.
+
+INTELLECTUAL PROPERTY RIGHTS
+All intellectual property created under this agreement shall belong solely to the Client.`
+
+const SAMPLE_B_CONTENT = `COMPANY LIABILITY POLICY
+Each party shall be fully liable for all damages, including indirect and consequential damages, arising from any breach of this agreement.
+
+CONTRACT TERM & LOCK-IN
+This agreement shall remain in force for a minimum of 24 months and may not be terminated without cause during this period.
+
+IP TRANSFER GUIDELINES
+The Service Provider retains ownership of all deliverables and grants the Client a non-exclusive license to use them.`
+
 const MOCK_RESULT = {
   document_a: 'contract_a.pdf',
   document_b: 'contract_b.pdf',
@@ -254,6 +272,23 @@ export default function Analyzer() {
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
 
+  const handleDownloadSample = (name, content) => {
+    const element = document.createElement("a");
+    const file = new Blob([content], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = name;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  const handleLoadSamples = () => {
+    const file1 = new File([SAMPLE_A_CONTENT], "sample_contract_a.txt", { type: "text/plain" });
+    const file2 = new File([SAMPLE_B_CONTENT], "sample_policy_b.txt", { type: "text/plain" });
+    setFileA(file1);
+    setFileB(file2);
+  }
+
   const canAnalyze = fileA && fileB && !loading
 
   const handleAnalyze = async () => {
@@ -314,6 +349,41 @@ export default function Analyzer() {
               Demo mode — results are mock data. Set NEXT_PUBLIC_API_URL to connect the live backend.
             </p>
           )}
+        </motion.div>
+
+        {/* Quick Test Workspace */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-8 p-5 rounded-lg border border-zinc-850 bg-zinc-900/30 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
+          <div className="space-y-1">
+            <h3 className="text-sm font-semibold text-amber-400">Quick Test Workspace</h3>
+            <p className="text-xs text-zinc-400">
+              Download our sample legal papers to review conflict patterns, or load them instantly to test.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            <button
+              onClick={() => handleDownloadSample("sample_contract_a.txt", SAMPLE_A_CONTENT)}
+              className="text-xs font-medium px-3 py-1.5 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-750 transition-colors"
+            >
+              Download Paper 1
+            </button>
+            <button
+              onClick={() => handleDownloadSample("sample_policy_b.txt", SAMPLE_B_CONTENT)}
+              className="text-xs font-medium px-3 py-1.5 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-750 transition-colors"
+            >
+              Download Paper 2
+            </button>
+            <button
+              onClick={handleLoadSamples}
+              className="text-xs font-semibold px-3 py-1.5 rounded bg-amber-500 hover:bg-amber-400 text-zinc-950 transition-colors"
+            >
+              Autofill Samples
+            </button>
+          </div>
         </motion.div>
 
         {/* Upload area */}

@@ -276,9 +276,9 @@ export default function Hero() {
             {/* stats */}
             <motion.div variants={item} className="flex flex-wrap gap-8 mt-12">
               {[
-                { value: '94.2%', label: 'NLI accuracy' },
-                { value: '< 3s',  label: 'per comparison' },
-                { value: 'PDF · DOCX', label: 'supported formats' },
+                { value: '87.0%', label: 'Manual review reduction' },
+                { value: '94.2%', label: 'NLI precision' },
+                { value: '< 3s',  label: 'Per comparison' },
               ].map(({ value, label }) => (
                 <div key={label}>
                   <div className="text-xl font-bold font-mono text-zinc-100 tracking-tight">{value}</div>
